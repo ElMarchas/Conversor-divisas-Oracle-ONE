@@ -6,7 +6,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -21,6 +20,15 @@ public class Currencies {
     private double COP;
     private double MXN;
     private double USD = 1;
+
+    public Currencies() {// esto es para testear nomas
+        this.ARS = 100;
+        this.BOB = 2;
+        this.BRL = 3;
+        this.CLP = 2;
+        this.COP = 4;
+        this.MXN = 5;
+    }
 
     public Currencies(String key) {
         URI url = URI.create("https://v6.exchangerate-api.com/v6/" + key + "/latest/USD");
@@ -58,22 +66,66 @@ public class Currencies {
 
     }
 
-    public CurrenciesRecord fetch(String key) {
-        URI url = URI.create("https://v6.exchangerate-api.com/v6/" + key + "/latest/USD");
+    public int getStatus() {
+        return status;
+    }
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest req = HttpRequest.newBuilder().uri(url).build();
+    public String getResult() {
+        return result;
+    }
 
-        try {
-            HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
-            // System.out.println(res.statusCode());
-            // System.out.println(res.body());
+    public String getErrorType() {
+        return errorType;
+    }
 
-            return new Gson().fromJson(res.body(), CurrenciesRecord.class);
-        } catch (Exception e) {
-            System.out.println(e);
+    public double getARS() {
+        return ARS;
+    }
+
+    public double getBOB() {
+        return BOB;
+    }
+
+    public double getBRL() {
+        return BRL;
+    }
+
+    public double getCLP() {
+        return CLP;
+    }
+
+    public double getCOP() {
+        return COP;
+    }
+
+    public double getMXN() {
+        return MXN;
+    }
+
+    public double getUSD() {
+        return USD;
+    }
+
+    public double selectCoin(String selector) {
+        switch (selector) {
+            case "1":
+                return this.USD;
+            case "2":
+                return this.ARS;
+            case "3":
+                return this.BOB;
+            case "4":
+                return this.BRL;
+            case "5":
+                return this.CLP;
+            case "6":
+                return this.COP;
+            case "7":
+                return this.MXN;
+
+            default:
+                return 0;
         }
-        return null;
 
     }
 
