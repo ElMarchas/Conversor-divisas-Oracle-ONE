@@ -44,7 +44,7 @@ public class Coin {
                 break;
 
             default:
-                this.name = "USD";
+                this.name = "NO";
                 break;
         }
 
