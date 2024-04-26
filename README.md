@@ -1,18 +1,16 @@
-## Getting Started
+# Conversor de monedas
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Conversor de monedas sencillo con 8 divisas para jugar
 
-## Folder Structure
+> - 1 USD
+> - 2 ARS
+> - 3 BOB
+> - 4 BRL
+> - 5 CLP
+> - 6 COP
+> - 7 MXN
+> - 8 VES
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Todo se maneja mediante la terminal de comandos.
+El valor de las divisas se obtienen a travez de la api brindada por [exchangerate-api](https://www.exchangerate-api.com/).
+Para manipular el json recibido de la API se utilizo la libreria Gson para manipular las key y obtener los valores de las divisas que estaban anidados dentro de un objeto.

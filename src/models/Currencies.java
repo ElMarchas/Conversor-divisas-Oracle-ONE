@@ -19,6 +19,7 @@ public class Currencies {
     private double CLP;
     private double COP;
     private double MXN;
+    private double VES;
     private double USD = 1;
 
     public Currencies() {// esto es para testear nomas
@@ -57,9 +58,7 @@ public class Currencies {
             this.CLP = rates.get("CLP").getAsDouble();
             this.COP = rates.get("COP").getAsDouble();
             this.MXN = rates.get("MXN").getAsDouble();
-
-            System.out.println(this.MXN);
-            // return new Gson().fromJson(res.body(), CurrenciesRecord.class);
+            this.VES = rates.get("VES").getAsDouble();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -102,6 +101,10 @@ public class Currencies {
         return MXN;
     }
 
+    public double getVES() {
+        return VES;
+    }
+
     public double getUSD() {
         return USD;
     }
@@ -122,7 +125,8 @@ public class Currencies {
                 return this.COP;
             case "7":
                 return this.MXN;
-
+            case "8":
+                return this.VES;
             default:
                 return 0;
         }

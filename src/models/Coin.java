@@ -42,9 +42,13 @@ public class Coin {
                 this.name = "MXN";
                 this.value = cur.selectCoin(selector);
                 break;
-
+            case "8":
+                this.name = "VES";
+                this.value = cur.selectCoin(selector);
+                break;
             default:
                 this.name = "NO";
+                this.value = 0;
                 break;
         }
 

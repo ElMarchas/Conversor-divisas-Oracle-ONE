@@ -7,18 +7,19 @@ public class App {
     public static void main(String[] args) throws Exception {
         String privKey = "1a77769bb5dfbc265de2332a";
         int exit = 0;
-        String inpStr = "";
         Scanner input = new Scanner(System.in);
-        // Currencies currens = new Currencies(privKey);
-        Currencies currens = new Currencies();
+        Currencies currens = new Currencies(privKey);
+        // Currencies currens = new Currencies();
 
         Coin baseCoin = new Coin();
         Coin secCoin = new Coin();
 
-        // CurrenciesRecord cur = currens.fetch(privKey);
-        // System.out.println("888888888888888888888");
-        // System.out.println(cur.result());
-        // System.out.println(cur.conversion_rates());
+        if (!currens.getResult().equalsIgnoreCase("success")) {
+            System.out.println("Error al conectar con la base de datos, adeous :]");
+            System.out.println(currens.getErrorType());
+            input.close();
+            System.exit(0);
+        }
 
         System.out.println("******* *** *** * *** *** *******");
         System.out.println("Bienvenido al conversor de divisas \nEscriba salir para terminar el programa\n");
@@ -52,20 +53,29 @@ public class App {
 
     public static int convertion(Coin baseCoin, Coin secCoin, Scanner input) {
         String stg;
+        double dbl;
+        System.out.printf("<--[Tasa de cambio 1 %s = %.2f %s][atras o salir]-->%n", baseCoin.getName(),
+                (secCoin.getValue() / baseCoin.getValue()),
+                secCoin.getName());
+        System.out.printf("Cuantos %s quiere convertir a %s?%n", secCoin.getName(),
+                baseCoin.getName());
         while (true) {
-            System.out.printf("Cuantos %s quiere convertir a %s?%n", secCoin.getName(),
-                    baseCoin.getName());
-            System.out.printf("Tasa de cambio 1 %s =   %.2f %s%n", baseCoin.getName(),
-                    (secCoin.getValue() / baseCoin.getValue()),
-                    secCoin.getName());
             stg = input.nextLine();
+            try {
+                dbl = Double.parseDouble(stg);
+                System.out.printf("----------------->%n[escribe]--->  %s %s son %.2f %s%n[atras o salir]-->%n",
+                        stg, secCoin.getName(),
+                        ((baseCoin.getValue() / secCoin.getValue()) * dbl),
+                        baseCoin.getName());
+            } catch (Exception e) {
+                if (stg.equalsIgnoreCase("atras")) {
+                    return 0;
+                }
+                if (stg.equalsIgnoreCase("salir")) {
+                    return 1;
+                }
+                System.out.println("Comando desconocido, ingrese un numero valido o la palabra salir");
 
-            System.out.printf("----->%n -->  %s %s son %.2f %s%n----->%n", stg, secCoin.getName(),
-                    ((baseCoin.getValue() / secCoin.getValue()) * Double.parseDouble(stg)),
-                    baseCoin.getName());
-
-            if (stg.equalsIgnoreCase("salir")) {
-                return 1;
             }
         }
 
@@ -73,9 +83,9 @@ public class App {
 
     public static int getCoin(Coin coin, Scanner input, Currencies cur) {
         String stg;
+        System.out.println("1.-USD | 2.-ARS | 3.-BOB | 4.-BRL");
+        System.out.println("5.-CLP | 6.-COP | 7.-MXN | 8.-VES");
         while (true) {
-            System.out.println("1.-USD | 2.-ARS | 3.-BOB | 4.-BRL");
-            System.out.println("5.-CLP | 6.-COP | 7.-MXN | venezuela");
             stg = input.nextLine();
             coin.selectCoin(stg, cur);
             if (coin.getValue() != 0) {
